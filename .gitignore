@@ -1,0 +1,9 @@
+/**/.vs/
+/**/bin/
+/**/obj/
+/**/dist/
+/**/node_modules/
+/**/yarn.lock
+/**/.yarnclean
+/**/yarn-error.log
+npm-debug.log

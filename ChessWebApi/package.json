@@ -1,0 +1,17 @@
+{
+  "name": "chess-web-api",
+  "version": "0.0.0",
+  "description": "ChessWebApi",
+  "main": "./dist/app.js",
+  "author": {
+    "name": "Brandon"
+  },
+  "devDependencies": {
+    "@types/express": "^4.0.33",
+    "@types/sequelize": "^4.0.38"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "miter": "0.0.11"
+  }
+}

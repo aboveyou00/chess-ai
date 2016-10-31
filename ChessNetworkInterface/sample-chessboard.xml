@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Game HasStarted="true" Winner="">
+  <Player Name="aboveyou00" Color="Black"></Player>
+  <Player Name="ksabry" Color="White"></Player>
+  <Turn Name="aboveyou00" TimeLeft="8.2"></Turn>
+  <Board>
+    <Move>e4</Move>
+    <Move>c5</Move>
+    <Move>c3</Move>
+    <Move>d5</Move>
+    <Move>exd5</Move>
+    <Move>Qxd5</Move>
+    <Move>d4</Move>
+    <Move>Nf6</Move>
+  </Board>
+</Game>

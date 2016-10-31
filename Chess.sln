@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessNetworkInterface", "ChessNetworkInterface\ChessNetworkInterface.csproj", "{5B711E7D-E3A5-4F0D-B507-80ADD49ED3EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChessAI", "ChessAI\ChessAI.csproj", "{4A2834AB-2A24-474E-AC70-9C8FA5E5BD3B}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "ChessWebApi", "ChessWebApi\ChessWebApi.njsproj", "{2D6338D9-EEBA-42B4-A40F-56A9625CC41C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B711E7D-E3A5-4F0D-B507-80ADD49ED3EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B711E7D-E3A5-4F0D-B507-80ADD49ED3EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B711E7D-E3A5-4F0D-B507-80ADD49ED3EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B711E7D-E3A5-4F0D-B507-80ADD49ED3EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A2834AB-2A24-474E-AC70-9C8FA5E5BD3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A2834AB-2A24-474E-AC70-9C8FA5E5BD3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A2834AB-2A24-474E-AC70-9C8FA5E5BD3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A2834AB-2A24-474E-AC70-9C8FA5E5BD3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D6338D9-EEBA-42B4-A40F-56A9625CC41C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D6338D9-EEBA-42B4-A40F-56A9625CC41C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D6338D9-EEBA-42B4-A40F-56A9625CC41C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D6338D9-EEBA-42B4-A40F-56A9625CC41C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
