@@ -17,7 +17,7 @@ export class ChessController {
   @Get('/getboard/:game')
   async getboard(req: express.Request, res: express.Response) {
     let gameName = req.params['game'];
-    let game = this.chessService.getOrCreateGame(name);
+    let game = this.chessService.getOrCreateGame(gameName);
     res.status(200).send(game.toXml());
   }
 
