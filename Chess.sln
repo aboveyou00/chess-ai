@@ -11,6 +11,8 @@ Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "ChessWebApi", "ChessWebApi\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone01", "Milestone01\Milestone01.csproj", "{D8FB6349-27B8-4BAD-8CDA-696334B4460D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Milestone02", "Milestone02\Milestone02.csproj", "{1D4F5EB6-C302-4AC2-8C32-0713F25A4972}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D8FB6349-27B8-4BAD-8CDA-696334B4460D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8FB6349-27B8-4BAD-8CDA-696334B4460D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8FB6349-27B8-4BAD-8CDA-696334B4460D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D4F5EB6-C302-4AC2-8C32-0713F25A4972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D4F5EB6-C302-4AC2-8C32-0713F25A4972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D4F5EB6-C302-4AC2-8C32-0713F25A4972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D4F5EB6-C302-4AC2-8C32-0713F25A4972}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
