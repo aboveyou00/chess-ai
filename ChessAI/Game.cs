@@ -27,10 +27,10 @@ namespace ChessAI
 
     public class Game
     {
-        public Game(Player p, IPAddress ip, ILogger logger = null)
+        public Game(string gameName, Player p, IPAddress ip, ILogger logger = null)
         {
             Player = p;
-            Network = new NetworkedChess(ip, p.Name);
+            Network = new NetworkedChess(ip, gameName, p.Name);
             Logger = logger ?? new ConsoleLogger();
         }
 

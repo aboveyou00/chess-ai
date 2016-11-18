@@ -31,8 +31,47 @@ export class ChessService {
     game.initBoard();
   }
 
-  playerMadeMove(name: string, player: string, move: string): boolean {
-    return false;
+  playerMadeMove(name: string, player: string, move: string): string {
+    let game = this.games.get(name);
+    if (!game) return `That game doesn't exist!`;
+    if (!game.hasStarted) return `That game hasn't started yet!`;
+    if (game.winner) return `That game already has a winner! You can't make any more moves!`;
+    if (game.turn.name != player) return `It's not your turn! It's ${game.turn.name}'s turn to move!`;
+
+    let match = moveRegex.exec(move);
+    if (!match) return `Could not parse move using move regex`;
+
+    let castleMove = match[captureGroups.castleMove];
+    if (castleMove) {
+      let error = game.validateCastleMove(castleMove);
+      if (error) return error;
+    }
+    else {
+      let movePiece = match[captureGroups.movePiece] || 'P';
+      let fromPosition = match[captureGroups.fromPosition];
+      let takePiece: boolean = !!match[captureGroups.takePiece];
+      let toPosition = match[captureGroups.toPosition];
+      let promotion = match[captureGroups.promotion];
+      let checkAndMate = match[captureGroups.checkAndMate];
+
+      let error = game.validateNormalMove(movePiece, fromPosition, takePiece, toPosition, promotion, checkAndMate);
+      if (error) return error;
+    }
+
+    game.turn.timeLeft = 10;
+    game.turn.name = (game.turn.name == game.players[0].name ? game.players[1].name : game.players[0].name);
+    return '';
   }
 
 }
+
+export const moveRegex = /^(?:(?:([KQBNRP][ld]?)?([a-h]?[1-8]?)(x)?([a-h][1-8])(?:=?([QBNR]))?)|(0-0(?:-0)?|o-o(?:-o)?|O-O(?:-O)?))([+][+]?)?$/g;
+export const captureGroups = {
+  movePiece: 1,
+  fromPosition: 2,
+  takePiece: 3,
+  toPosition: 4,
+  promotion: 5,
+  castleMove: 6,
+  checkAndMate: 7
+};

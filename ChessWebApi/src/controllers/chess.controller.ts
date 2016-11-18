@@ -34,7 +34,8 @@ export class ChessController {
     let gameName = req.params['game'];
     let playerName = req.params['player'];
     let move = req.params['move'];
-    let success = this.chessService.playerMadeMove(gameName, playerName, move);
-    res.status(200).send(success ? 'true' : 'false');
+    let error = this.chessService.playerMadeMove(gameName, playerName, move);
+    if (error) res.status(400).send(error);
+    else res.status(200).end();
   }
 }
