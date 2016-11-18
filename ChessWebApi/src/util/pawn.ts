@@ -2,6 +2,6 @@
 
 export class Pawn extends ChessPiece {
   get notation(): string {
-    return '';
+    return 'P';
   }
 }

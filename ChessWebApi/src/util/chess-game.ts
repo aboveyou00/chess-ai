@@ -19,14 +19,14 @@ export class ChessGame {
     this.winner = '';
     this.moves = [];
     this.board = [
-      [new Rook('Black'), new Knight('Black'), new Bishop('Black'), new Queen('Black'), new King('Black'), new Bishop('Black'), new Knight('Black'), new Rook('Black')],
-      [new Pawn('Black'), new Pawn('Black'), new Pawn('Black'), new Pawn('Black'), new Pawn('Black'), new Pawn('Black'), new Pawn('Black'), new Pawn('Black')],
-      [null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null],
-      [new Pawn('White'), new Pawn('White'), new Pawn('White'), new Pawn('White'), new Pawn('White'), new Pawn('White'), new Pawn('White'), new Pawn('White')],
-      [new Rook('White'), new Knight('White'), new Bishop('White'), new Queen('White'), new King('White'), new Bishop('White'), new Knight('White'), new Rook('White')]
+      [new Rook('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')],
+      [new Knight('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Knight('White')],
+      [new Bishop('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Bishop('White')],
+      [new Queen('Black'),  new Pawn('Black'), null, null, null, null, new Pawn('White'), new Queen('White')],
+      [new King('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new King('White')],
+      [new Bishop('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Bishop('White')],
+      [new Knight('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Knight('White')],
+      [new Rook('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')]
     ];
   }
 
@@ -127,7 +127,11 @@ export class ChessGame {
     if (log) {
       var capture = takePiece ? "to capture the piece at" : "to";
       var promotionStr = promotion ? ` Promote to ${promotionType.name}.` : "";
-      console.log(`Move the ${pieceType.name} at ${('A' + fromx)}${8 - fromy} ${capture} ${('A' + tox)}${8 - toy}.${promotionStr}`);
+      var fromxStr = String.fromCharCode('A'.charCodeAt(0) + fromx);
+      var fromyStr = String.fromCharCode('8'.charCodeAt(0) - fromy);
+      var toxStr = String.fromCharCode('A'.charCodeAt(0) + tox);
+      var toyStr = String.fromCharCode('8'.charCodeAt(0) - toy);
+      console.log(`Move the ${pieceType.name} at ${fromxStr}${fromyStr} ${capture} ${toxStr}${toyStr}.${promotionStr}`);
       console.log(this.toConsoleString());
     }
 
@@ -251,11 +255,11 @@ export class ChessGame {
   }
 
   toXml(): string {
-    let players = this.players.map(p => `<Player Name="${p.name}" Color="${p.color}"></Player>`).join();
+    let players = this.players.map(p => `<Player Name="${p.name}" Color="${p.color}"></Player>`).join('');
     let turn = '', board = '';
     if (this.hasStarted) {
       if (!this.winner) turn = `<Turn Name="${this.turn.name}" TimeLeft="${this.turn.timeLeft}"></Turn>`;
-      let moves = this.moves.map(move => `<Move>${move}</Move>`).join();
+      let moves = this.moves.map(move => `<Move>${move}</Move>`).join('');
       board = `<Board>${moves}</Board>`;
     }
 

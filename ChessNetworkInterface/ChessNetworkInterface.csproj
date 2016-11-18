@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ChessBoard.cs" />
     <Compile Include="ChessPiece.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="NetworkedChess.cs" />
     <Compile Include="PlayerColor.cs" />
     <Compile Include="Program.cs" />

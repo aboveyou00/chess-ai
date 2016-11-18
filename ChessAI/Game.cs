@@ -41,7 +41,7 @@ namespace ChessAI
         public async Task<bool> Start()
         {
             Logger.Log("Joining network game...");
-            bool joined = await Network.JoinGame();
+            bool joined = await Network.JoinGameAsync();
             if (joined) Logger.Log("Game joined.");
             else Logger.Log("Could not join game.");
             return joined;

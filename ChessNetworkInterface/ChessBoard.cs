@@ -416,8 +416,7 @@ namespace ChessNetworkInterface
             double? turnTimeLeft = null;
             List<string> moves = new List<string>();
 
-            var settings = new XmlReaderSettings();
-            settings.Async = true;
+            var settings = new XmlReaderSettings() { Async = true };
             using (var xml = XmlReader.Create(stream, settings))
             while (await xml.ReadAsync())
             {
@@ -439,8 +438,7 @@ namespace ChessNetworkInterface
                 {
                     if (turnTimeLeft != null) throw new InvalidDataException();
                     string timeLeftString = xml.GetAttribute("TimeLeft");
-                    double timeLeftDouble;
-                    if (!double.TryParse(timeLeftString, out timeLeftDouble)) throw new InvalidDataException("Invalid turn element!");
+                    if (!double.TryParse(timeLeftString, out double timeLeftDouble)) throw new InvalidDataException("Invalid turn element!");
                     turnTimeLeft = timeLeftDouble;
                 }
                 else if (xml.Name == "Board")

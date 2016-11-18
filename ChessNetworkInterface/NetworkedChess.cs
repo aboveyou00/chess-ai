@@ -22,7 +22,7 @@ namespace ChessNetworkInterface
         public string GameName { get; private set; }
         public string Name { get; private set; }
         
-        public async Task<bool> Reset()
+        public async Task<bool> ResetAsync()
         {
             var req = WebRequest.Create(new Uri($"http://{ServerAddress}/reset/{GameName}"));
             req.Method = Http.Post;
@@ -32,7 +32,7 @@ namespace ChessNetworkInterface
             using (var reader = new StreamReader(res.GetResponseStream()))
                 return "true" == await reader.ReadToEndAsync();
         }
-        public async Task<ChessBoard> GetBoard()
+        public async Task<ChessBoard> GetBoardAsync()
         {
             var req = WebRequest.Create(new Uri($"http://{ServerAddress}/getboard/{GameName}"));
             req.Method = Http.Get;
@@ -42,7 +42,7 @@ namespace ChessNetworkInterface
             using (var reader = new StreamReader(res.GetResponseStream()))
                 return ChessBoard.FromString(await reader.ReadToEndAsync());
         }
-        public async Task<bool> JoinGame()
+        public async Task<bool> JoinGameAsync()
         {
             var req = WebRequest.Create(new Uri($"http://{ServerAddress}/joingame/{GameName}/{Name}"));
             req.Method = Http.Post;
@@ -52,7 +52,7 @@ namespace ChessNetworkInterface
             using (var reader = new StreamReader(res.GetResponseStream()))
                 return "true" == await reader.ReadToEndAsync();
         }
-        public async Task<bool> MakeMove(string move)
+        public async Task<bool> MakeMoveAsync(string move)
         {
             var req = WebRequest.Create(new Uri($"http://{ServerAddress}/makemove/{GameName}/{Name}/{move}"));
             req.Method = Http.Post;

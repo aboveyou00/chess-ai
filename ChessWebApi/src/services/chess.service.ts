@@ -58,6 +58,7 @@ export class ChessService {
       if (error) return error;
     }
 
+    game.moves.push(move);
     game.turn.timeLeft = 10;
     game.turn.name = (game.turn.name == game.players[0].name ? game.players[1].name : game.players[0].name);
     return '';
@@ -65,7 +66,7 @@ export class ChessService {
 
 }
 
-export const moveRegex = /^(?:(?:([KQBNRP][ld]?)?([a-h]?[1-8]?)(x)?([a-h][1-8])(?:=?([QBNR]))?)|(0-0(?:-0)?|o-o(?:-o)?|O-O(?:-O)?))([+][+]?)?$/g;
+export const moveRegex = /^(?:(?:([KQBNRP][ld]?)?([a-h]?[1-8]?)(x)?([a-h][1-8])(?:=?([QBNR]))?)|(0-0(?:-0)?|o-o(?:-o)?|O-O(?:-O)?))([+][+]?)?$/;
 export const captureGroups = {
   movePiece: 1,
   fromPosition: 2,
