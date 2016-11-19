@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Milestone01
+namespace ChessAI.Milestone01
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            if (args.Length == 0) args = new[] { "test.txt" };
+            if (args.Length == 0) args = new[] { "Milestone01/test-m1.txt" };
             if (args.Length == 0)
             {
                 Console.WriteLine("Usage: Milestone01 <path-to-file>");

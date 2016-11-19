@@ -38,7 +38,7 @@ namespace ChessAI
         public NetworkedChess Network { get; }
         public ILogger Logger { get; }
 
-        public async Task<bool> Start()
+        public async Task<bool> StartAsync()
         {
             Logger.Log("Joining network game...");
             bool joined = await Network.JoinGameAsync();
@@ -50,7 +50,7 @@ namespace ChessAI
         public bool HasGameStarted { get; private set; }
         public bool IsMyTurn { get; private set; }
 
-        public event EventHandler MyTurnStarted;
+        //public event EventHandler MyTurnStarted;
     }
     
     public abstract class Player
