@@ -90,12 +90,15 @@
   <ItemGroup>
     <Folder Include="src\" />
     <Folder Include="src\app\" />
+    <Folder Include="src\app\about\" />
     <Folder Include="src\app\components\move-list\" />
     <Folder Include="src\app\components\board-tile\" />
     <Folder Include="src\app\components\game-board\" />
     <Folder Include="src\app\components\add-player\" />
     <Folder Include="src\app\components\make-move\" />
     <Folder Include="src\app\components\reset-game\" />
+    <Folder Include="src\app\github\" />
+    <Folder Include="src\app\github\repo-browser\" />
     <Folder Include="src\app\github\repo-detail\" />
     <Folder Include="src\app\github\repo-list\" />
     <Folder Include="src\app\github\shared\" />

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Milestone01
+namespace ChessAI.Milestone01
 {
     public static class StringExt
     {

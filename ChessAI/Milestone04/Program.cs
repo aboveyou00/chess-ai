@@ -1,25 +1,26 @@
-﻿using ChessNetworkInterface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ChessNetworkInterface;
 
-namespace Milestone02
+namespace ChessAI.Milestone04
 {
     public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            if (args.Length == 0) args = new[] { "sample-chessboard-m02.xml" };
+            if (args.Length == 0)
+                args = new[] { "Milestone04/test-m4.xml" };
             if (args.Length == 0)
             {
                 Console.WriteLine("Usage: Milestone02 <path-to-file>");
                 Console.ReadKey();
                 return;
             }
-
+            
             ChessBoard board;
             using (var file = File.OpenRead(args[0]))
             {

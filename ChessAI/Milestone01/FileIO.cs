@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace Milestone01
+namespace ChessAI.Milestone01
 {
     public class ChessIO : IDisposable, IEnumerable<string>
     {
@@ -68,8 +68,7 @@ namespace Milestone01
         private string interpretPlacePiece(string placePiece)
         {
             var color = placePiece.EndsWith("l") ? "white" : "black";
-            string piece;
-            if (!pieceNames.TryGetValue(placePiece[0], out piece)) piece = "%%ERROR%%";
+            if (!pieceNames.TryGetValue(placePiece[0], out string piece)) piece = "%%ERROR%%";
             return $"{color} {piece}";
         }
         private string interpretMove(string moveFrom, string moveTo, bool capture = false)
