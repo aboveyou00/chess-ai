@@ -1,0 +1,25 @@
+﻿
+
+.board {
+  width: 800px;
+  height: 800px;
+  display: table;
+  margin: 0 auto;
+}
+.board > .row {
+  width: 800px;
+  height: 100px;
+  display: table-row;
+}
+.board > .row > .col {
+  width: 100px;
+  height: 100px;
+  display: table-cell;
+}
+
+.board > .row.even > .col.even, .board > .row.odd > .col.odd {
+  background: #f5dbb6;
+}
+.board > .row.even > .col.odd, .board > .row.odd > .col.even {
+  background: #aa4916;
+}

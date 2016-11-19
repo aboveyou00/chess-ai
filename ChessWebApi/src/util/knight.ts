@@ -1,7 +1,8 @@
 ﻿import { ChessPiece } from './chess-piece';
+import { PlayerColor } from './player';
 
 export class Knight extends ChessPiece {
-  get notation(): string {
-    return 'N';
+  constructor(color: PlayerColor) {
+    super(color, 'N');
   }
 }

@@ -1,6 +1,14 @@
-﻿Game: {{gameName}}<br/>
-Board JSON: {{game | json}}<br/>
+﻿<h1>Game: {{gameName}}</h1>
 
-<add-player *ngIf="!game.players || game.players.length < 2" [gameName]="gameName" (playerAdded)="addPlayer($event)"></add-player>
-<make-move *ngIf="isMyTurn" [gameName]="gameName" [player]="game.turn.name"></make-move>
-<reset-game *ngIf="game.players && game.players.length" [gameName]="gameName" (reset)="reset()"></reset-game>
+<div *ngIf="!game.hasStarted">
+  <add-player *ngIf="!game.players || game.players.length < 2" [gameName]="gameName" (playerAdded)="addPlayer($event)"></add-player>
+  <reset-game *ngIf="game.players && game.players.length" [gameName]="gameName" (reset)="reset()"></reset-game>
+</div>
+
+<div *ngIf="game.hasStarted">
+  <move-list [moves]="game.moves"></move-list>
+  <game-board [board]="game.board"></game-board>
+  
+  <make-move *ngIf="isMyTurn" [gameName]="gameName" [player]="game.turn.name"></make-move>
+  <reset-game *ngIf="game.players && game.players.length" [gameName]="gameName" (reset)="reset()"></reset-game>
+</div>

@@ -33,10 +33,15 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include=".gitignore" />
     <Content Include="LICENSE" />
     <Content Include="src\app\about\about.component.html" />
     <Content Include="src\app\app.component.html" />
+    <Content Include="src\app\components\move-list\move-list.css" />
+    <Content Include="src\app\components\move-list\move-list.html" />
+    <Content Include="src\app\components\board-tile\board-tile.css" />
+    <Content Include="src\app\components\board-tile\board-tile.html" />
+    <Content Include="src\app\components\game-board\game-board.css" />
+    <Content Include="src\app\components\game-board\game-board.html" />
     <Content Include="src\app\components\add-player\add-player.css" />
     <Content Include="src\app\components\add-player\add-player.html" />
     <Content Include="src\app\components\make-move\make-move.css" />
@@ -57,11 +62,13 @@
     <Content Include="tsconfig.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <TypeScriptCompile Include="Scripts\typings\node\node.d.ts" />
     <TypeScriptCompile Include="src\app\about\about.component.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\app.routes.ts" />
+    <TypeScriptCompile Include="src\app\components\move-list\move-list.ts" />
+    <TypeScriptCompile Include="src\app\components\board-tile\board-tile.ts" />
+    <TypeScriptCompile Include="src\app\components\game-board\game-board.ts" />
     <TypeScriptCompile Include="src\app\components\add-player\add-player.ts" />
     <TypeScriptCompile Include="src\app\components\index.ts" />
     <TypeScriptCompile Include="src\app\components\make-move\make-move.ts" />
@@ -81,11 +88,11 @@
     <TypeScriptCompile Include="src\vendor.browser.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Scripts\" />
-    <Folder Include="Scripts\typings\" />
-    <Folder Include="Scripts\typings\node\" />
     <Folder Include="src\" />
     <Folder Include="src\app\" />
+    <Folder Include="src\app\components\move-list\" />
+    <Folder Include="src\app\components\board-tile\" />
+    <Folder Include="src\app\components\game-board\" />
     <Folder Include="src\app\components\add-player\" />
     <Folder Include="src\app\components\make-move\" />
     <Folder Include="src\app\components\reset-game\" />

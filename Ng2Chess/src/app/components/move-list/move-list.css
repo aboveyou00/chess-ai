@@ -1,0 +1,15 @@
+﻿
+
+.moveList {
+  float: left;
+  width: 200px;
+  font-size: x-large;
+  height: 800px;
+  border-right: 4px solid #ddd;
+}
+.moveList > .move {
+  background: #fff;
+}
+.moveList > .move:nth-child(2n) {
+  background: #ddd;
+}

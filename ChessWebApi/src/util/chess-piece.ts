@@ -1,24 +1,19 @@
 ﻿import { PlayerColor } from './player';
 
+type PieceNotation = 'K' | 'Q' | 'N' | 'B' | 'R' | 'P';
+
 export abstract class ChessPiece {
-  constructor(private _color: PlayerColor) {
+  constructor(color: PlayerColor, notation: PieceNotation) {
+    this.color = color;
+    this.pieceType = notation;
   }
 
-  get color() {
-    return this._color;
-  }
-
-  private _hasMoved: boolean;
-  get hasMoved(): boolean {
-    return this._hasMoved;
-  }
-  set hasMoved(value: boolean) {
-    this._hasMoved = value;
-  }
-
-  abstract get notation(): string;
+  color: PlayerColor;
+  hasMoved: boolean = false;
+  pieceType: PieceNotation;
+  
   toConsoleString(): string {
-    return this.notation + (this.color == 'White' ? 'l' : 'd');
+    return this.pieceType + (this.color == 'White' ? 'l' : 'd');
   }
 }
 
