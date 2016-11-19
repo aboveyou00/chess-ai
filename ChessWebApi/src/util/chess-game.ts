@@ -253,7 +253,20 @@ export class ChessGame {
       yield [tox + 1, toy + 1];
     }
   }
-
+  
+  toJson(): string {
+    //let json: any = {
+    //  hasStarted: this.hasStarted,
+    //  winner: this.winner
+    //};
+    //if (this.players && this.players.length > 0) json.players = this.players;
+    //if (this.hasStarted) {
+    //  if (!this.winner) json.turn = this.turn;
+    //  json.moves = this.moves;
+    //}
+    //return JSON.stringify(json);
+    return JSON.stringify(this);
+  }
   toXml(): string {
     let players = this.players.map(p => `<Player Name="${p.name}" Color="${p.color}"></Player>`).join('');
     let turn = '', board = '';
@@ -262,7 +275,7 @@ export class ChessGame {
       let moves = this.moves.map(move => `<Move>${move}</Move>`).join('');
       board = `<Board>${moves}</Board>`;
     }
-
+    
     return `
       <?xml version="1.0" encoding="utf-8" ?>
       <Game HasStarted="${this.hasStarted}" Winner="${this.winner}">
