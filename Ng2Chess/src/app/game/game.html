@@ -1,0 +1,6 @@
+﻿Game: {{gameName}}<br/>
+Board JSON: {{game | json}}<br/>
+
+<add-player *ngIf="!game.players || game.players.length < 2" [gameName]="gameName" (playerAdded)="addPlayer($event)"></add-player>
+<make-move *ngIf="isMyTurn" [gameName]="gameName" [player]="game.turn.name"></make-move>
+<reset-game *ngIf="game.players && game.players.length" [gameName]="gameName" (reset)="reset()"></reset-game>

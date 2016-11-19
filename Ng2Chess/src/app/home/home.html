@@ -1,0 +1,8 @@
+﻿<h3>Home Component</h3>
+<p>Welcome to my HTML5 Ng2 chess app!</p>
+
+<form>
+  <label for="gameName"></label>
+  <input type="text" name="gameName" [(ngModel)]="gameName" />
+  <button type="button" [routerLink]="['/', 'game', gameName]" [disabled]="!gameName">View Game</button>
+</form>

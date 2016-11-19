@@ -1,0 +1,9 @@
+﻿<form>
+  <!--<label for="player">Player Name:</label>
+  <select *ngIf="players && players.length" name="player" [(ngModel)]="player">
+    <option *ngFor="let player of players">{{player}}</option>
+  </select>-->
+  <label for="move">Move {{player}}:</label>
+  <input type="text" name="move" [(ngModel)]="move" /><br />
+  <button type="button" (click)="makeMove();" [disabled]="!player || !move">Make Move</button>
+</form>

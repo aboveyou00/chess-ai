@@ -1,0 +1,145 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>Ng2Chess</Name>
+    <RootNamespace>Ng2Chess</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>b062de32-202b-4e06-a42c-4c2ff2447187</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>
+    </StartupFile>
+    <StartWebBrowser>False</StartWebBrowser>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <ProjectView>ProjectFiles</ProjectView>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <EnableTypeScript>true</EnableTypeScript>
+    <StartWebBrowser>false</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="LICENSE" />
+    <Content Include="src\app\about\about.component.html" />
+    <Content Include="src\app\app.component.html" />
+    <Content Include="src\app\components\add-player\add-player.css" />
+    <Content Include="src\app\components\add-player\add-player.html" />
+    <Content Include="src\app\components\make-move\make-move.css" />
+    <Content Include="src\app\components\make-move\make-move.html" />
+    <Content Include="src\app\components\reset-game\reset-game.css" />
+    <Content Include="src\app\components\reset-game\reset-game.html" />
+    <Content Include="src\app\game\game.css" />
+    <Content Include="src\app\game\game.html" />
+    <Content Include="src\app\github\repo-browser\repo-browser.component.html" />
+    <Content Include="src\app\github\repo-detail\repo-detail.component.css" />
+    <Content Include="src\app\github\repo-detail\repo-detail.component.html" />
+    <Content Include="src\app\github\repo-list\repo-list.component.css" />
+    <Content Include="src\app\github\repo-list\repo-list.component.html" />
+    <Content Include="src\app\home\home.css" />
+    <Content Include="src\app\home\home.html" />
+    <Content Include="src\favicon.ico" />
+    <Content Include="src\index.html" />
+    <Content Include="tsconfig.json" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <TypeScriptCompile Include="Scripts\typings\node\node.d.ts" />
+    <TypeScriptCompile Include="src\app\about\about.component.ts" />
+    <TypeScriptCompile Include="src\app\app.component.ts" />
+    <TypeScriptCompile Include="src\app\app.module.ts" />
+    <TypeScriptCompile Include="src\app\app.routes.ts" />
+    <TypeScriptCompile Include="src\app\components\add-player\add-player.ts" />
+    <TypeScriptCompile Include="src\app\components\index.ts" />
+    <TypeScriptCompile Include="src\app\components\make-move\make-move.ts" />
+    <TypeScriptCompile Include="src\app\components\reset-game\reset-game.ts" />
+    <TypeScriptCompile Include="src\app\game\game.ts" />
+    <TypeScriptCompile Include="src\app\github\repo-browser\repo-browser.component.ts" />
+    <TypeScriptCompile Include="src\app\github\repo-detail\repo-detail.component.ts" />
+    <TypeScriptCompile Include="src\app\github\repo-list\repo-list.component.ts" />
+    <TypeScriptCompile Include="src\app\github\shared\github.service.ts" />
+    <TypeScriptCompile Include="src\app\home\home.ts" />
+    <TypeScriptCompile Include="src\app\services\chess.service.ts" />
+    <TypeScriptCompile Include="src\app\services\index.ts" />
+    <TypeScriptCompile Include="src\app\util\config.ts" />
+    <TypeScriptCompile Include="src\custom-typings.d.ts" />
+    <TypeScriptCompile Include="src\main.browser.ts" />
+    <TypeScriptCompile Include="src\polyfills.browser.ts" />
+    <TypeScriptCompile Include="src\vendor.browser.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+    <Folder Include="Scripts\typings\" />
+    <Folder Include="Scripts\typings\node\" />
+    <Folder Include="src\" />
+    <Folder Include="src\app\" />
+    <Folder Include="src\app\components\add-player\" />
+    <Folder Include="src\app\components\make-move\" />
+    <Folder Include="src\app\components\reset-game\" />
+    <Folder Include="src\app\github\repo-detail\" />
+    <Folder Include="src\app\github\repo-list\" />
+    <Folder Include="src\app\github\shared\" />
+    <Folder Include="src\app\home\" />
+    <Folder Include="src\app\components\" />
+    <Folder Include="src\app\game\" />
+    <Folder Include="src\app\util\" />
+    <Folder Include="src\app\services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="webpack.config.js" />
+  </ItemGroup>
+  <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

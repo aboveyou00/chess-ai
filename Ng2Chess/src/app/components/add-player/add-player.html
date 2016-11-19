@@ -1,0 +1,5 @@
+﻿<form>
+  <label for="addPlayerName">Player Name:</label>
+  <input type="text" name="addPlayerName" [(ngModel)]="addPlayerName" />
+  <button type="button" (click)="addPlayer();" [disabled]="!addPlayerName">Add Player</button>
+</form>

@@ -6,4 +6,5 @@
 /**/yarn.lock
 /**/.yarnclean
 /**/yarn-error.log
-npm-debug.log
+/**/npm-debug.log
+/miter/
