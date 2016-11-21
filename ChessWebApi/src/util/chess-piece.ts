@@ -1,6 +1,12 @@
 ﻿import { PlayerColor } from './player';
 
-type PieceNotation = 'K' | 'Q' | 'N' | 'B' | 'R' | 'P';
+export type PieceNotation = 'K' | 'Q' | 'N' | 'B' | 'R' | 'P';
+
+export type ChessBoardT = (ChessPiece | null)[][];
+export type StaticChessPiece<T extends ChessPiece> = {
+  new (...args: any[]): T,
+  findPossibilities(board: ChessBoardT, tox: number, toy: number, takePiece?: boolean, turnColor?: PlayerColor): IterableIterator<[number, number]>
+};
 
 export abstract class ChessPiece {
   constructor(color: PlayerColor, notation: PieceNotation) {

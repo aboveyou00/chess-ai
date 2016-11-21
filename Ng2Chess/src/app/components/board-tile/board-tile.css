@@ -4,3 +4,15 @@
   width: 100px;
   height: 100px;
 }
+.tile:hover:before {
+  display: block;
+  position: relative;
+  margin-bottom: -100px;
+  margin-right: -100px;
+  content: '';
+  left: 0;
+  top: 0;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 0, 0, .5);
+}

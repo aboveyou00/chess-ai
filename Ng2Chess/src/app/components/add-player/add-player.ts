@@ -16,6 +16,7 @@ export class AddPlayerComponent {
   
   addPlayerName: string;
   addPlayer() {
+    if (!this.addPlayerName) return;
     let addPlayerName = this.addPlayerName;
     this.chess.joinGame(this.gameName, addPlayerName).then((worked) => {
       if (worked) this.playerAdded.emit(addPlayerName);

@@ -23,3 +23,23 @@
 .board > .row.even > .col.odd, .board > .row.odd > .col.even {
   background: #aa4916;
 }
+
+.rowMarker {
+  display: table-cell;
+  font-size: x-large;
+  padding: 0 8px;
+  vertical-align: middle;
+  color: gray;
+}
+
+.columnMarkers {
+  display: table-row;
+}
+
+.columnMarker {
+  display: table-cell;
+  font-size: x-large;
+  padding: 8px 0;
+  text-align: center;
+  color: gray;
+}

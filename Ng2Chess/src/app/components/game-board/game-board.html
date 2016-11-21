@@ -1,7 +1,12 @@
 ﻿<div *ngIf="board" [class.board]="true">
   <div *ngFor="let row of [0,1,2,3,4,5,6,7]" [class.row]="true" [class.even]="row % 2 == 1" [class.odd]="row % 2 == 0">
+    <div [class.rowMarker]="true">{{8 - row}}</div>
     <div *ngFor="let col of [0,1,2,3,4,5,6,7]" [class.col]="true" [class.even]="col % 2 == 1" [class.odd]="col % 2 == 0">
       <board-tile [piece]="board[col][row]"></board-tile>
     </div>
+  </div>
+  <div [class.columnMarkers]="true">
+    <div [class.columnMarker]="true"></div>
+    <div *ngFor="let col of [0,1,2,3,4,5,6,7]" [class.columnMarker]="true">{{'ABCDEFGH'[col]}}</div>
   </div>
 </div>

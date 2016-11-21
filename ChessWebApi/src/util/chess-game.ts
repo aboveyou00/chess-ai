@@ -1,4 +1,4 @@
-﻿import { ChessPiece, King, Queen, Knight, Rook, Bishop, Pawn } from './chess-piece';
+﻿import { ChessPiece, StaticChessPiece, King, Queen, Knight, Rook, Bishop, Pawn } from './chess-piece';
 import { Player } from './player';
 import { Turn } from './turn';
 
@@ -29,7 +29,7 @@ export class ChessGame {
       [new Rook('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')]
     ];
   }
-
+  
   get currentTurnColor() {
     if (!this.hasStarted) throw new Error(`Games that haven't started yet don't have current turn colors.`);
     let color = (this.turn.name == this.players[0].name) ? this.players[0].color : this.players[1].color;
@@ -70,13 +70,13 @@ export class ChessGame {
   }
   validateNormalMove(movePiece: string, fromPosition: string, takePiece: boolean, toPosition: string, promotion: string, checkAndMate: string): string {
     let board = this.board;
-
+    
     //Normalize movePiece to contain just the type of piece [KQBNRP]
     if (movePiece.endsWith('l') || movePiece.endsWith('d')) {
       if (movePiece[movePiece.length - 1] != (this.currentTurnColor == 'Black' ? 'd' : 'l')) return "Moving a piece out of turn.";
       movePiece = movePiece.substr(0, 1);
     }
-    var pieceType = this.getPieceType(movePiece);
+    let pieceType = this.getPieceType(movePiece);
     
     let predicate: (pos: [number, number]) => boolean = (pos) => true;
     if (fromPosition) {
@@ -90,7 +90,7 @@ export class ChessGame {
     }
     
     let tox = toPosition[0].charCodeAt(0) - 'a'.charCodeAt(0), toy = 7 - (toPosition[1].charCodeAt(0) - '1'.charCodeAt(0));
-
+    
     //Validate whether or not you are taking a piece
     let pieceTaking = board[tox][toy];
     if (takePiece || (pieceTaking && pieceTaking.color != this.currentTurnColor)) {
@@ -100,16 +100,16 @@ export class ChessGame {
     }
     else if (pieceTaking) return "Can't move a piece onto another piece!";
     
-    var promotionType = pieceType;
+    let promotionType = pieceType;
     if (promotion) {
       if (pieceType !== Pawn) return "Pieces that aren't pawns can't be promoted!";
       if (toy != (this.currentTurnColor == 'White' ? 0 : 7)) return "Pawns can't be promoted until they reach the end row.";
       promotionType = this.getPieceType(promotion);
     }
     else if (pieceType === Pawn && toy == (this.currentTurnColor == 'White' ? 0 : 7)) return "Moving a pawn to the end row must specify a pawn promotion.";
-
+    
     //Find all piece possibilities
-    var possibilities = [...this.findPiecePossibilities(pieceType, tox, toy, takePiece)]
+    var possibilities = [...pieceType.findPossibilities(this.board, tox, toy, takePiece, this.currentTurnColor)]
       .filter(pos => pos[0] >= 0 && pos[0] <= 7 && pos[1] >= 0 && pos[1] <= 7)
       .filter(pos => {
         let piece = board[pos[0]][pos[1]];
@@ -123,7 +123,7 @@ export class ChessGame {
     if (promotion) board[fromx][fromy] = new promotionType(this.currentTurnColor);
     var pieceMoved = board[tox][toy] = board[fromx][fromy];
     board[fromx][fromy] = null;
-
+    
     if (log) {
       var capture = takePiece ? "to capture the piece at" : "to";
       var promotionStr = promotion ? ` Promote to ${promotionType.name}.` : "";
@@ -134,10 +134,10 @@ export class ChessGame {
       console.log(`Move the ${pieceType.name} at ${fromxStr}${fromyStr} ${capture} ${toxStr}${toyStr}.${promotionStr}`);
       console.log(this.toConsoleString());
     }
-
+    
     return '';
   }
-  private getPieceType(movePiece: string) {
+  private getPieceType(movePiece: string): StaticChessPiece<any> {
     switch (movePiece) {
       case 'K': return King;
       case 'Q': return Queen;
@@ -147,110 +147,6 @@ export class ChessGame {
       case 'P': return Pawn;
 
       default: throw new Error(`WTF?`);
-    }
-  }
-
-  private findPiecePossibilities(type: new (...args: any[]) => any, tox: number, toy: number, takePiece: boolean): IterableIterator<[number, number]> {
-    switch (type) {
-      case King:
-        return this.findKingPossibilities(tox, toy, takePiece);
-      case Queen:
-        return this.findQueenPossibilities(tox, toy, takePiece);
-      case Bishop:
-        return this.findBishopPossibilities(tox, toy, takePiece);
-      case Rook:
-        return this.findRookPossibilities(tox, toy, takePiece);
-      case Knight:
-        return this.findKnightPossibilities(tox, toy, takePiece);
-      case Pawn:
-        return this.findPawnPossibilities(tox, toy, takePiece);
-      default:
-        throw new Error(`Invalid chess piece type: ${type}`);
-    }
-  }
-
-  private *findKingPossibilities(tox: number, toy: number, takePiece: boolean): IterableIterator<[number, number]> {
-    yield [tox - 1, toy - 1];
-    yield [tox, toy - 1];
-    yield [tox + 1, toy - 1];
-    yield [tox - 1, toy];
-    yield [tox + 1, toy];
-    yield [tox - 1, toy + 1];
-    yield [tox, toy + 1];
-    yield [tox - 1, toy + 1];
-  }
-  private *findQueenPossibilities(tox: number, toy: number, takePiece: boolean): IterableIterator<[number, number]> {
-    yield* this.findRookPossibilities(tox, toy, takePiece);
-    yield* this.findBishopPossibilities(tox, toy, takePiece);
-  }
-  private *findRookPossibilities(tox: number, toy: number, takePiece: boolean): IterableIterator<[number, number]> {
-    for (let q = tox + 1; q < 8; q++)
-    {
-      yield [q, toy];
-      if (this.board[q][toy]) break;
-    }
-    for (let q = tox - 1; q >= 0; q--)
-    {
-      yield [q, toy];
-      if (this.board[q][toy]) break;
-    }
-    for (let q = toy + 1; q < 8; q++)
-    {
-      yield [tox, q];
-      if (this.board[tox][q]) break;
-    }
-    for (let q = toy - 1; q >= 0; q--)
-    {
-      yield [tox, q];
-      if (this.board[tox][q]) break;
-    }
-  }
-  private *findBishopPossibilities(tox: number, toy: number, takePiece: boolean): IterableIterator<[number, number]> {
-    for (let q = 1; q < 8; q++)
-    {
-      if (tox + q > 7 || toy + q > 7) break;
-      yield [tox + q, toy + q];
-      if (this.board[tox + q][toy + q]) break;
-    }
-    for (let q = 1; q < 8; q++)
-    {
-      if (tox - q < 0 || toy + q > 7) break;
-      yield [tox - q, toy + q];
-      if (this.board[tox - q][toy + q]) break;
-    }
-    for (let q = 1; q < 8; q++)
-    {
-      if (tox + q > 7 || toy - q < 0) break;
-      yield [tox + q, toy - q];
-      if (this.board[tox + q][toy - q]) break;
-    }
-    for (let q = 1; q < 8; q++)
-    {
-      if (tox - q < 0 || toy - q < 0) break;
-      yield [tox - q, toy - q];
-      if (this.board[tox - q][toy - q]) break;
-    }
-  }
-  private *findKnightPossibilities(tox: number, toy: number, takePiece: boolean): IterableIterator<[number, number]> {
-    yield [tox - 2, toy - 1];
-    yield [tox - 1, toy - 2];
-    yield [tox + 2, toy - 1];
-    yield [tox + 1, toy - 2];
-    yield [tox - 2, toy + 1];
-    yield [tox - 1, toy + 2];
-    yield [tox + 2, toy + 1];
-    yield [tox + 1, toy + 2];
-  }
-  private *findPawnPossibilities(tox: number, toy: number, takePiece: boolean): IterableIterator<[number, number]> {
-    yield [tox, toy - 1];
-    yield [tox, toy + 1];
-    if (toy == 4 && !takePiece) yield [tox, toy + 2];
-    if (toy == 3 && !takePiece) yield [tox, toy - 2];
-    if (takePiece) {
-      yield [tox - 1, toy - 1];
-      yield [tox + 1, toy - 1];
-      yield [tox - 1, toy + 1];
-      yield [tox + 1, toy + 1];
     }
   }
   
