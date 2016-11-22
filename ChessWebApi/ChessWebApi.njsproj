@@ -44,7 +44,6 @@
     <TypeScriptCompile Include="src\util\bishop.ts" />
     <TypeScriptCompile Include="src\util\chess-game.ts" />
     <TypeScriptCompile Include="src\util\chess-piece.ts" />
-    <TypeScriptCompile Include="src\util\ChessBoardT.ts" />
     <TypeScriptCompile Include="src\util\index.ts" />
     <TypeScriptCompile Include="src\util\king.ts" />
     <TypeScriptCompile Include="src\util\knight.ts" />

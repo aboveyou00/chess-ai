@@ -1,3 +1,3 @@
-﻿<div class="tile">
+﻿<div [class.tile]="true" [class.selected]="selected" [class.validMove]="validMove">
   <img *ngIf="piece" [src]="imageSource" />
 </div>

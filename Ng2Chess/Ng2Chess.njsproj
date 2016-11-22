@@ -34,7 +34,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="LICENSE" />
-    <Content Include="src\app\about\about.component.html" />
     <Content Include="src\app\app.component.html" />
     <Content Include="src\app\components\move-list\move-list.css" />
     <Content Include="src\app\components\move-list\move-list.html" />
@@ -50,11 +49,6 @@
     <Content Include="src\app\components\reset-game\reset-game.html" />
     <Content Include="src\app\game\game.css" />
     <Content Include="src\app\game\game.html" />
-    <Content Include="src\app\github\repo-browser\repo-browser.component.html" />
-    <Content Include="src\app\github\repo-detail\repo-detail.component.css" />
-    <Content Include="src\app\github\repo-detail\repo-detail.component.html" />
-    <Content Include="src\app\github\repo-list\repo-list.component.css" />
-    <Content Include="src\app\github\repo-list\repo-list.component.html" />
     <Content Include="src\app\home\home.css" />
     <Content Include="src\app\home\home.html" />
     <Content Include="src\favicon.ico" />
@@ -62,7 +56,6 @@
     <Content Include="tsconfig.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
-    <TypeScriptCompile Include="src\app\about\about.component.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\app.routes.ts" />
@@ -74,10 +67,6 @@
     <TypeScriptCompile Include="src\app\components\make-move\make-move.ts" />
     <TypeScriptCompile Include="src\app\components\reset-game\reset-game.ts" />
     <TypeScriptCompile Include="src\app\game\game.ts" />
-    <TypeScriptCompile Include="src\app\github\repo-browser\repo-browser.component.ts" />
-    <TypeScriptCompile Include="src\app\github\repo-detail\repo-detail.component.ts" />
-    <TypeScriptCompile Include="src\app\github\repo-list\repo-list.component.ts" />
-    <TypeScriptCompile Include="src\app\github\shared\github.service.ts" />
     <TypeScriptCompile Include="src\app\home\home.ts" />
     <TypeScriptCompile Include="src\app\services\chess.service.ts" />
     <TypeScriptCompile Include="src\app\services\index.ts" />
@@ -90,18 +79,12 @@
   <ItemGroup>
     <Folder Include="src\" />
     <Folder Include="src\app\" />
-    <Folder Include="src\app\about\" />
     <Folder Include="src\app\components\move-list\" />
     <Folder Include="src\app\components\board-tile\" />
     <Folder Include="src\app\components\game-board\" />
     <Folder Include="src\app\components\add-player\" />
     <Folder Include="src\app\components\make-move\" />
     <Folder Include="src\app\components\reset-game\" />
-    <Folder Include="src\app\github\" />
-    <Folder Include="src\app\github\repo-browser\" />
-    <Folder Include="src\app\github\repo-detail\" />
-    <Folder Include="src\app\github\repo-list\" />
-    <Folder Include="src\app\github\shared\" />
     <Folder Include="src\app\home\" />
     <Folder Include="src\app\components\" />
     <Folder Include="src\app\game\" />

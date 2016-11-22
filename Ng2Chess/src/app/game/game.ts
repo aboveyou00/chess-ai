@@ -28,6 +28,18 @@ export class GameComponent implements OnInit, OnDestroy {
   get isMyTurn() {
     return this.game.hasStarted && !this.game.winner && !!this.myPlayers.find(p => p == this.game.turn.name);
   }
+  get currentPlayer() {
+    if (!this.game.hasStarted) return null;
+    return this.game.players.find(p => p.name == this.game.turn.name);
+  }
+  get currentTurnColor() {
+    let p = this.currentPlayer;
+    if (!p) return 'FISH';
+    return p.color;
+  }
+  makeMove(move: string) {
+    this.chess.makeMove(this._gameName, this.game.turn.name, move);
+  }
   reset() {
     this.myPlayers = [];
   }

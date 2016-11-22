@@ -82,14 +82,15 @@ export class ChessGame {
     if (fromPosition) {
       let firstChar = fromPosition[0];
       let lastChar = fromPosition[fromPosition.length - 1];
-      var fromRow = firstChar >= 'a' && firstChar <= 'h' ? firstChar.charCodeAt(0) - 'a'.charCodeAt(0) : null;
-      var fromColumn = lastChar >= '1' && lastChar <= '8' ? lastChar.charCodeAt(0) - '1'.charCodeAt(0) : null;
+      let fromColumn = firstChar >= 'a' && firstChar <= 'h' ? firstChar.charCodeAt(0) - 'a'.charCodeAt(0) : null;
+      let fromRow = lastChar >= '1' && lastChar <= '8' ? 7 - (lastChar.charCodeAt(0) - '1'.charCodeAt(0)) : null;
       if (fromRow != null && fromColumn != null) predicate = (pos) => pos[0] == fromColumn && pos[1] == fromRow;
       else if (fromRow != null) predicate = (pos) => pos[0] == fromRow;
       else predicate = (pos) => pos[1] == fromColumn;
     }
     
-    let tox = toPosition[0].charCodeAt(0) - 'a'.charCodeAt(0), toy = 7 - (toPosition[1].charCodeAt(0) - '1'.charCodeAt(0));
+    let tox = toPosition[0].charCodeAt(0) - 'a'.charCodeAt(0),
+        toy = 7 - (toPosition[1].charCodeAt(0) - '1'.charCodeAt(0));
     
     //Validate whether or not you are taking a piece
     let pieceTaking = board[tox][toy];

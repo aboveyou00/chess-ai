@@ -1,4 +1,4 @@
-﻿<h1>Game: {{gameName}}</h1>
+﻿<h1>Game: {{gameName}} -!! {{currentTurnColor}}</h1>
 
 <div *ngIf="!game.hasStarted">
   <add-player *ngIf="!game.players || game.players.length < 2" [gameName]="gameName" (playerAdded)="addPlayer($event)"></add-player>
@@ -7,7 +7,7 @@
 
 <div *ngIf="game.hasStarted">
   <move-list [moves]="game.moves"></move-list>
-  <game-board [board]="game.board"></game-board>
+  <game-board [board]="game.board" [currentTurnColor]="currentTurnColor" (moveMade)="makeMove($event)" [moveCount]="game.moves.length"></game-board>
   
   <make-move *ngIf="isMyTurn" [gameName]="gameName" [player]="game.turn.name"></make-move>
   <reset-game *ngIf="game.players && game.players.length" [gameName]="gameName" (reset)="reset()"></reset-game>

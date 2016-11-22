@@ -9,6 +9,8 @@ export class BoardTileComponent {
   constructor() { }
   
   @Input() piece: any;
+  @Input() selected: boolean;
+  @Input() validMove: boolean;
   
   get imageSource(): string {
     return `/img/${this.piece.pieceType}${this.piece.color}.png`;

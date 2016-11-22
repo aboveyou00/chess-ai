@@ -4,7 +4,7 @@
   width: 100px;
   height: 100px;
 }
-.tile:hover:before {
+.tile:before {
   display: block;
   position: relative;
   margin-bottom: -100px;
@@ -14,5 +14,20 @@
   top: 0;
   width: 100px;
   height: 100px;
-  background: rgba(255, 0, 0, .5);
+  background: rgba(0, 0, 0, 0);
+}
+.tile.selected:before {
+  background: rgba(255, 255, 0, .3);
+}
+.tile.validMove:before {
+  background: rgba(0, 255, 0, .3);
+}
+.tile:hover:before {
+  background: rgba(0, 0, 255, .3);
+}
+.tile.selected:hover:before {
+  background: rgba(255, 255, 125, .3);
+}
+.tile.validMove:hover:before {
+  background: rgba(0, 255, 125, .3);
 }

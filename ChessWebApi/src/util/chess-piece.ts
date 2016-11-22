@@ -13,7 +13,7 @@ export abstract class ChessPiece {
     this.color = color;
     this.pieceType = notation;
   }
-
+  
   color: PlayerColor;
   hasMoved: boolean = false;
   pieceType: PieceNotation;
