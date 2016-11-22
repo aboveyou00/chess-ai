@@ -18,15 +18,40 @@ export class ChessGame {
     this.hasStarted = true;
     this.winner = '';
     this.moves = [];
+    ////Standard chess board
+    //this.board = [
+    //  [new Rook('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')],
+    //  [new Knight('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Knight('White')],
+    //  [new Bishop('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Bishop('White')],
+    //  [new Queen('Black'),  new Pawn('Black'), null, null, null, null, new Pawn('White'), new Queen('White')],
+    //  [new King('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new King('White')],
+    //  [new Bishop('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Bishop('White')],
+    //  [new Knight('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Knight('White')],
+    //  [new Rook('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')]
+    //];
+
+    ////Testing castling:
+    //this.board = [
+    //  [new Rook('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')],
+    //  [null, new Pawn('Black'), null, null, null, null, new Pawn('White'), null],
+    //  [null, new Pawn('Black'), null, null, null, null, new Pawn('White'), null],
+    //  [null, new Pawn('Black'), null, null, null, null, new Pawn('White'), null],
+    //  [new King('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new King('White')],
+    //  [null, new Pawn('Black'), null, null, null, null, new Pawn('White'), null],
+    //  [null, new Pawn('Black'), null, null, null, null, new Pawn('White'), null],
+    //  [new Rook('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')]
+    //];
+
+    //Promotion
     this.board = [
-      [new Rook('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')],
-      [new Knight('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Knight('White')],
+      [null,                new Pawn('White'), null, null, null, null, new Pawn('White'), new Rook('White')],
+      [null,                null,              null, null, null, null, new Pawn('White'), new Knight('White')],
       [new Bishop('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Bishop('White')],
       [new Queen('Black'),  new Pawn('Black'), null, null, null, null, new Pawn('White'), new Queen('White')],
       [new King('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new King('White')],
       [new Bishop('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Bishop('White')],
-      [new Knight('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Knight('White')],
-      [new Rook('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')]
+      [new Knight('Black'), new Pawn('Black'), null, null, null, null, null,              null],
+      [new Rook('Black'),   null,              null, null, null, null, new Pawn('Black'), null]
     ];
   }
   
@@ -39,15 +64,17 @@ export class ChessGame {
     let board = this.board;
     let queenSide: boolean = castleMove.length === 5;
     let y = (this.currentTurnColor == 'White') ? 7 : 0;
-    let rookFrom = 0, kingTo, rookTo;
+    let rookFrom, kingTo, rookTo;
     if (queenSide) {
       kingTo = 2;
       rookTo = 3;
+      rookFrom = 0;
       if (!board[0][y] || board[1][y] || board[2][y] || board[3][y] || !board[4][y]) return "Invalid castling move.";
     }
     else {
       kingTo = 6;
       rookTo = 5;
+      rookFrom = 7;
       if (!board[4][y] || board[5][y] || board[6][y] || !board[7][y]) return "Invalid castling move.";
     }
 
@@ -57,15 +84,15 @@ export class ChessGame {
       return "Invalid castling move.";
     }
 
+    board[kingTo][y] = king; king.hasMoved = true;
+    board[rookTo][y] = rook; rook.hasMoved = true;
+    board[rookFrom][y] = board[4][y] = null;
+
     if (log) {
       var side = queenSide ? 'Queen-side' : 'King-side';
       console.log(`${side} castle.`);
       console.log(this.toConsoleString());
     }
-
-    this[kingTo][y] = king; king.hasMoved = true;
-    this[rookTo][y] = rook; rook.hasMoved = true;
-    this[rookFrom][y] = this[4][y] = null;
     return '';
   }
   validateNormalMove(movePiece: string, fromPosition: string, takePiece: boolean, toPosition: string, promotion: string, checkAndMate: string): string {

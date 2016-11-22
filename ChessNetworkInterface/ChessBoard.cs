@@ -152,17 +152,19 @@ namespace ChessNetworkInterface
         {
             var queenSide = match.Groups["castleMove"].Value.Length == 5;
             var y = (CurrentTurnColor == PlayerColor.White ? 7 : 0);
-            int rookFrom = 0, kingTo, rookTo;
+            int rookFrom, kingTo, rookTo;
             if (queenSide)
             {
                 kingTo = 2;
                 rookTo = 3;
+                rookFrom = 0;
                 if (this[0, y] == null || this[1, y] != null || this[2, y] != null || this[3, y] != null || this[4, y] == null) throw new InvalidDataException("Invalid castling move.");
             }
             else
             {
                 kingTo = 6;
                 rookTo = 5;
+                rookFrom = 7;
                 if (this[4, y] == null || this[5, y] != null || this[6, y] != null || this[7, y] == null) throw new InvalidDataException("Invalid castling move.");
             }
 

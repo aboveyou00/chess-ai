@@ -88,7 +88,17 @@ export class GameBoardComponent {
          yield makePossibility(piece.pieceType, col, row, col - 1, row + 1);
          yield makePossibility(piece.pieceType, col, row, col + 0, row + 1);
          yield makePossibility(piece.pieceType, col, row, col + 1, row + 1);
-         //TODO: castling
+
+         if (!piece.hasMoved && col == 4) {
+           if (!this.board[col - 1][row] && !this.board[col - 2][row] && !this.board[col - 3][row]) {
+             let rook = this.board[col - 4][row];
+             if (rook && !rook.hasMoved && rook.pieceType == 'R') yield { col: col - 2, row: row, move: 'O-O-O' };
+           }
+           if (!this.board[col + 1][row] && !this.board[col + 2][row]) {
+             let rook = this.board[col + 3][row];
+             if (rook && !rook.hasMoved && rook.pieceType == 'R') yield { col: col + 2, row: row, move: 'O-O' };
+           }
+         }
        },
     Q: function* (row: number, col: number, piece: any): IterableIterator<MovePossibility> {
          yield* this.piecePossibilities['B'].bind(this)(row, col, piece);
