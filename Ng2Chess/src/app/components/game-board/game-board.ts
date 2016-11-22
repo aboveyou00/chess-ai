@@ -3,13 +3,9 @@
 type MovePossibility = {
   col: number,
   row: number,
-  move: string
+  move: string,
+  promote?: boolean
 };
-let value: MovePossibility = {
-  col: 3,
-  row: 5,
-  move: 'd6'
-}
 function makePossibility(prefix: string, col: number, row: number, colto: number, rowto: number, capture?: boolean): MovePossibility {
   return {
     col: colto,
@@ -28,7 +24,7 @@ function makeCoords(col: number, row: number): string {
 })
 export class GameBoardComponent {
   constructor() { }
-  
+
   @Input() board: any;
   @Input() currentTurnColor: 'Black' | 'White';
 
@@ -41,15 +37,17 @@ export class GameBoardComponent {
     this.selectedRow = -1;
     this.movePossibilities = [];
   }
-  
+
   @Output() moveMade: EventEmitter<string> = new EventEmitter<string>();
-  
+
   private selectedRow: number;
   private selectedColumn: number;
   private movePossibilities: MovePossibility[] = [];
   isValidMove(col: number, row: number): boolean {
     return !!this.movePossibilities.find(move => move.row == row && move.col == col);
   }
+
+  isPromoting: MovePossibility | null = null;
   
   tileClicked(col: number, row: number) {
     let piece = this.board[col][row];
@@ -58,24 +56,36 @@ export class GameBoardComponent {
         this.selectedColumn = -1;
         this.selectedRow = -1;
         this.movePossibilities = [];
+        this.isPromoting = null;
         return;
       }
       this.selectedColumn = col;
       this.selectedRow = row;
       this.movePossibilities = this.findPossibilities();
+      this.isPromoting = null;
       console.log(this.movePossibilities);
     }
     else {
       let moves = [...this.movePossibilities.filter(move => move.col == col && move.row == row)];
       if (moves.length > 1) throw new Error('Multiple valid moves! This should never happen!');
       if (moves.length == 1) {
-        this.moveMade.emit(moves[0].move);
+        let move = moves[0];
+        if (move && move.promote) this.isPromoting = move;
+        else this.moveMade.emit(move.move);
         return;
       }
       this.selectedColumn = -1;
       this.selectedRow = -1;
       this.movePossibilities = [];
+      this.isPromoting = null;
     }
+  }
+  promoteWith(type: string) {
+    if (!this.isPromoting) return;
+    let promoMove = this.isPromoting.move;
+    this.isPromoting = null;
+    if (!type) return;
+    this.moveMade.emit(promoMove + type);
   }
   
   piecePossibilities: { [key: string]: { (row: number, col: number, piece: any): IterableIterator<MovePossibility> } } = {
@@ -186,7 +196,9 @@ export class GameBoardComponent {
          let forward = (this.currentTurnColor == 'White' ? -1 : 1);
          let firstPieceTaken = row + forward < 0 || row + forward > 7 || !!this.board[col][row + forward];
          if (!firstPieceTaken) {
-           yield makePossibility('', col, row, col, row + forward);
+           let move = makePossibility('', col, row, col, row + forward);
+           if (row + forward == 0 || row + forward == 7) move.promote = true;
+           yield move;
            if (!piece.hasMoved) {
              let secondPieceTaken = !!this.board[col][row + (forward * 2)];
              if (!secondPieceTaken) yield makePossibility('', col, row, col, row + (forward * 2));

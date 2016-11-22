@@ -1,17 +1,17 @@
 ﻿
 
 .board {
-  width: 800px;
-  height: 800px;
+  width: 850px;
+  height: 850px;
   display: table;
   margin: 0 auto;
 }
-.board > .row {
-  width: 800px;
+.row {
+  width: 850px;
   height: 100px;
   display: table-row;
 }
-.board > .row > .col {
+.col {
   width: 100px;
   height: 100px;
   display: table-cell;
@@ -27,19 +27,55 @@
 .rowMarker {
   display: table-cell;
   font-size: x-large;
-  padding: 0 8px;
+  width: 50px;
+  text-align: center;
   vertical-align: middle;
   color: gray;
 }
 
 .columnMarkers {
   display: table-row;
+  height: 50px;
 }
 
 .columnMarker {
   display: table-cell;
   font-size: x-large;
-  padding: 8px 0;
   text-align: center;
+  vertical-align: middle;
   color: gray;
+}
+.columnMarkerSpacer {
+  display: table-cell;
+}
+
+.promotionMenu {
+  width: 100vw;
+  height: 100vh;
+  display: table;
+  margin: 0 auto;
+  margin-bottom: -850px;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, .8);
+}
+.promotionMenuRowSpacer {
+  height: 100px;
+  display: table-row;
+}
+.promotionMenuRow {
+  height: 100px;
+  display: table-row;
+}
+.promotionMenuSpacer {
+  display: table-cell;
+}
+.promotionMenuColumn {
+  width: 100px;
+  height: 100px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
 }
