@@ -8,12 +8,12 @@ export class King extends ChessPiece {
   
   static *findPossibilities(board: ChessBoardT, tox: number, toy: number): IterableIterator<[number, number]> {
     yield [tox - 1, toy - 1];
-    yield [tox, toy - 1];
+    yield [tox + 0, toy - 1];
     yield [tox + 1, toy - 1];
-    yield [tox - 1, toy];
-    yield [tox + 1, toy];
+    yield [tox - 1, toy + 0];
+    yield [tox + 1, toy + 0];
     yield [tox - 1, toy + 1];
-    yield [tox, toy + 1];
-    yield [tox - 1, toy + 1];
+    yield [tox + 0, toy + 1];
+    yield [tox + 1, toy + 1];
   }
 }

@@ -66,7 +66,7 @@ export class ChessService {
 
 }
 
-export const moveRegex = /^(?:(?:([KQBNRP][ld]?)?([a-h]?[1-8]?)(x)?([a-h][1-8])(?:=?([QBNR]))?)|(0-0(?:-0)?|o-o(?:-o)?|O-O(?:-O)?))([+][+]?)?$/;
+export const moveRegex = /^(?:(?:([KQBNRP][ld]??)?([a-h]?[1-8]?)(x)?([a-h][1-8])(?:=?([QBNR]))?)|(0-0(?:-0)?|o-o(?:-o)?|O-O(?:-O)?))([+][+]?)?$/;
 export const captureGroups = {
   movePiece: 1,
   fromPosition: 2,

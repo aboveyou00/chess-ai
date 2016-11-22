@@ -81,13 +81,13 @@ export class GameBoardComponent {
   piecePossibilities: { [key: string]: { (row: number, col: number, piece: any): IterableIterator<MovePossibility> } } = {
     K: function* (row: number, col: number, piece: any): IterableIterator<MovePossibility> {
          yield makePossibility(piece.pieceType, col, row, col - 1, row - 1);
-         yield makePossibility(piece.pieceType, col, row, col, row - 1);
+         yield makePossibility(piece.pieceType, col, row, col + 0, row - 1);
          yield makePossibility(piece.pieceType, col, row, col + 1, row - 1);
-         yield makePossibility(piece.pieceType, col, row, col - 1, row);
-         yield makePossibility(piece.pieceType, col, row, col + 1, row);
+         yield makePossibility(piece.pieceType, col, row, col - 1, row + 0);
+         yield makePossibility(piece.pieceType, col, row, col + 1, row + 0);
          yield makePossibility(piece.pieceType, col, row, col - 1, row + 1);
-         yield makePossibility(piece.pieceType, col, row, col, row + 1);
-         yield makePossibility(piece.pieceType, col, row, col - 1, row + 1);
+         yield makePossibility(piece.pieceType, col, row, col + 0, row + 1);
+         yield makePossibility(piece.pieceType, col, row, col + 1, row + 1);
          //TODO: castling
        },
     Q: function* (row: number, col: number, piece: any): IterableIterator<MovePossibility> {
@@ -105,7 +105,7 @@ export class GameBoardComponent {
          yield makePossibility(piece.pieceType, col, row, col + 1, row + 2);
        },
     B: function* (row: number, col: number, piece: any): IterableIterator<MovePossibility> {
-         for (let q = 0; col - q >= 0 && row - q >= 0; q++) {
+         for (let q = 1; col - q >= 0 && row - q >= 0; q++) {
            let takingPiece = this.board[col - q][row - q];
            if (!!takingPiece) {
              if (takingPiece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col - q, row - q, true);
@@ -113,7 +113,7 @@ export class GameBoardComponent {
            }
            yield makePossibility(piece.pieceType, col, row, col - q, row - q);
          }
-         for (let q = 0; col - q >= 0 && row + q <= 7; q++) {
+         for (let q = 1; col - q >= 0 && row + q <= 7; q++) {
            let takingPiece = this.board[col - q][row + q];
            if (!!takingPiece) {
              if (takingPiece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col - q, row + q, true);
@@ -121,7 +121,7 @@ export class GameBoardComponent {
            }
            yield makePossibility(piece.pieceType, col, row, col - q, row + q);
          }
-         for (let q = 0; col + q <= 7 && row + q <= 7; q++) {
+         for (let q = 1; col + q <= 7 && row + q <= 7; q++) {
            let takingPiece = this.board[col + q][row + q];
            if (!!takingPiece) {
              if (takingPiece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col + q, row + q, true);
@@ -129,7 +129,7 @@ export class GameBoardComponent {
            }
            yield makePossibility(piece.pieceType, col, row, col + q, row + q);
          }
-         for (let q = 0; col + q <= 7 && row - q >= 0; q++) {
+         for (let q = 1; col + q <= 7 && row - q >= 0; q++) {
            let takingPiece = this.board[col + q][row - q];
            if (!!takingPiece) {
              if (takingPiece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col + q, row - q, true);
