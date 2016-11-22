@@ -105,34 +105,34 @@ export class GameBoardComponent {
          yield makePossibility(piece.pieceType, col, row, col + 1, row + 2);
        },
     B: function* (row: number, col: number, piece: any): IterableIterator<MovePossibility> {
-         for (let q = 0; row - q >= 0 && col - q >= 0; q++) {
-           let piece = this.board[col - q][row - q];
-           if (!!piece) {
-             if (piece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col - q, row - q, true);
+         for (let q = 0; col - q >= 0 && row - q >= 0; q++) {
+           let takingPiece = this.board[col - q][row - q];
+           if (!!takingPiece) {
+             if (takingPiece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col - q, row - q, true);
              break;
            }
            yield makePossibility(piece.pieceType, col, row, col - q, row - q);
          }
-         for (let q = 0; row + q <= 7 && col - q >= 0; q++) {
-           let piece = this.board[col - q][row + q];
-           if (!!piece) {
-             if (piece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col - q, row + q, true);
+         for (let q = 0; col - q >= 0 && row + q <= 7; q++) {
+           let takingPiece = this.board[col - q][row + q];
+           if (!!takingPiece) {
+             if (takingPiece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col - q, row + q, true);
              break;
            }
            yield makePossibility(piece.pieceType, col, row, col - q, row + q);
          }
-         for (let q = 0; row + q <= 7 && col + q <= 7; q++) {
-           let piece = this.board[col + q][row + q];
-           if (!!piece) {
-             if (piece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col + q, row + q, true);
+         for (let q = 0; col + q <= 7 && row + q <= 7; q++) {
+           let takingPiece = this.board[col + q][row + q];
+           if (!!takingPiece) {
+             if (takingPiece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col + q, row + q, true);
              break;
            }
            yield makePossibility(piece.pieceType, col, row, col + q, row + q);
          }
-         for (let q = 0; row - q >= 0 && col + q <= 7; q++) {
-           let piece = this.board[col + q][row - q];
-           if (!!piece) {
-             if (piece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col + q, row - q, true);
+         for (let q = 0; col + q <= 7 && row - q >= 0; q++) {
+           let takingPiece = this.board[col + q][row - q];
+           if (!!takingPiece) {
+             if (takingPiece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col + q, row - q, true);
              break;
            }
            yield makePossibility(piece.pieceType, col, row, col + q, row - q);
@@ -140,33 +140,33 @@ export class GameBoardComponent {
        },
     R: function* (row: number, col: number, piece: any): IterableIterator<MovePossibility> {
          for (let q = col - 1; q >= 0; q--) {
-           let piece = this.board[q][row];
-           if (!!piece) {
-             if (piece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, q, row, true);
+           let takingPiece = this.board[q][row];
+           if (!!takingPiece) {
+             if (takingPiece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, q, row, true);
              break;
            }
            yield makePossibility(piece.pieceType, col, row, q, row);
          }
-         for (let q = col + 1; q <= 7; q--) {
-           let piece = this.board[q][row];
-           if (!!piece) {
-             if (piece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, q, row, true);
+         for (let q = col + 1; q <= 7; q++) {
+           let takingPiece = this.board[q][row];
+           if (!!takingPiece) {
+             if (takingPiece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, q, row, true);
              break;
            }
            yield makePossibility(piece.pieceType, col, row, q, row);
          }
          for (let w = row - 1; w >= 0; w--) {
-           let piece = this.board[col][w];
-           if (!!piece) {
-             if (piece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col, w, true);
+           let takingPiece = this.board[col][w];
+           if (!!takingPiece) {
+             if (takingPiece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col, w, true);
              break;
            }
            yield makePossibility(piece.pieceType, col, row, col, w);
          }
-         for (let w = row + 1; w <= 7; w--) {
-           let piece = this.board[col][w];
-           if (!!piece) {
-             if (piece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col, w, true);
+         for (let w = row + 1; w <= 7; w++) {
+           let takingPiece = this.board[col][w];
+           if (!!takingPiece) {
+             if (takingPiece.color != this.currentTurnColor) yield makePossibility(piece.pieceType, col, row, col, w, true);
              break;
            }
            yield makePossibility(piece.pieceType, col, row, col, w);
@@ -177,7 +177,10 @@ export class GameBoardComponent {
          let firstPieceTaken = row + forward < 0 || row + forward > 7 || !!this.board[col][row + forward];
          if (!firstPieceTaken) {
            yield makePossibility('', col, row, col, row + forward);
-           if (!piece.hasMoved) yield makePossibility('', col, row, col, row + (forward * 2));
+           if (!piece.hasMoved) {
+             let secondPieceTaken = !!this.board[col][row + (forward * 2)];
+             if (!secondPieceTaken) yield makePossibility('', col, row, col, row + (forward * 2));
+           }
          }
          if (row + forward >= 0 && row + forward <= 7 && col > 0) {
            let captureLeft = this.board[col - 1][row + forward];

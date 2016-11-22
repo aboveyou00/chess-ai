@@ -110,7 +110,7 @@ export class ChessGame {
     else if (pieceType === Pawn && toy == (this.currentTurnColor == 'White' ? 0 : 7)) return "Moving a pawn to the end row must specify a pawn promotion.";
     
     //Find all piece possibilities
-    var possibilities = [...pieceType.findPossibilities(this.board, tox, toy, takePiece, this.currentTurnColor)]
+    let possibilities = [...pieceType.findPossibilities(this.board, tox, toy, takePiece, this.currentTurnColor)]
       .filter(pos => pos[0] >= 0 && pos[0] <= 7 && pos[1] >= 0 && pos[1] <= 7)
       .filter(pos => {
         let piece = board[pos[0]][pos[1]];
@@ -122,7 +122,8 @@ export class ChessGame {
     else if (possibilities.length > 1) return "Could not find a single best move that matches move syntax.";
     let fromx: number = possibilities[0][0], fromy: number = possibilities[0][1];
     if (promotion) board[fromx][fromy] = new promotionType(this.currentTurnColor);
-    var pieceMoved = board[tox][toy] = board[fromx][fromy];
+    let pieceMoved = board[tox][toy] = board[fromx][fromy];
+    if (pieceMoved) pieceMoved.hasMoved = true;
     board[fromx][fromy] = null;
     
     if (log) {
@@ -152,16 +153,6 @@ export class ChessGame {
   }
   
   toJson(): string {
-    //let json: any = {
-    //  hasStarted: this.hasStarted,
-    //  winner: this.winner
-    //};
-    //if (this.players && this.players.length > 0) json.players = this.players;
-    //if (this.hasStarted) {
-    //  if (!this.winner) json.turn = this.turn;
-    //  json.moves = this.moves;
-    //}
-    //return JSON.stringify(json);
     return JSON.stringify(this);
   }
   toXml(): string {
