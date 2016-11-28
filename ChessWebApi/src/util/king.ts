@@ -16,4 +16,18 @@ export class King extends ChessPiece {
     yield [tox + 0, toy + 1];
     yield [tox + 1, toy + 1];
   }
+  
+  listMoves(board: ChessBoardT, fromx: number, fromy: number): IterableIterator<[Function, Function]> {
+    return this.validateMoves(board, fromx, fromy, this.allMoves(board, fromx, fromy));
+  }
+  private *allMoves(board: ChessBoardT, fromx: number, fromy: number): IterableIterator<[number, number]> {
+    yield [fromx - 1, fromy - 1];
+    yield [fromx + 0, fromy - 1];
+    yield [fromx + 1, fromy - 1];
+    yield [fromx - 1, fromy + 0];
+    yield [fromx + 1, fromy + 0];
+    yield [fromx - 1, fromy + 1];
+    yield [fromx + 0, fromy + 1];
+    yield [fromx + 1, fromy + 1];
+  }
 }

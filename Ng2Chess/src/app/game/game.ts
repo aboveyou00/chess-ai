@@ -21,6 +21,8 @@ export class GameComponent implements OnInit, OnDestroy {
     return this._game;
   }
   
+  error: string;
+  
   myPlayers: string[] = [];
   addPlayer(name: string) {
     this.myPlayers.push(name);
@@ -38,7 +40,9 @@ export class GameComponent implements OnInit, OnDestroy {
     return p.color;
   }
   makeMove(move: string) {
-    this.chess.makeMove(this._gameName, this.game.turn.name, move);
+    this.error = '';
+    this.chess.makeMove(this._gameName, this.game.turn.name, move)
+      .catch(response => this.error = response._body);
   }
   reset() {
     this.myPlayers = [];

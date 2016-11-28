@@ -12,4 +12,12 @@ export class Queen extends ChessPiece {
     yield* Rook.findPossibilities(board, tox, toy);
     yield* Bishop.findPossibilities(board, tox, toy);
   }
+  
+  listMoves(board: ChessBoardT, fromx: number, fromy: number): IterableIterator<[Function, Function]> {
+    return this.wrapMoves(board, fromx, fromy, [...this.allMoves(board, fromx, fromy)]);
+  }
+  *allMoves(board: ChessBoardT, fromx: number, fromy: number): IterableIterator<[number, number]> {
+    yield* Rook.allMoves(this, board, fromx, fromy);
+    yield* Bishop.allMoves(this, board, fromx, fromy);
+  }
 }

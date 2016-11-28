@@ -28,4 +28,42 @@ export class Bishop extends ChessPiece {
       if (board[tox - q][toy - q]) break;
     }
   }
+  
+  listMoves(board: ChessBoardT, fromx: number, fromy: number): IterableIterator<[Function, Function]> {
+    return this.wrapMoves(board, fromx, fromy, [...Bishop.allMoves(this, board, fromx, fromy)]);
+  }
+  static *allMoves(self: ChessPiece, board: ChessBoardT, xfrom: number, yfrom: number): IterableIterator<[number, number]> {
+    for (let q = 1; xfrom - q >= 0 && yfrom - q >= 0; q++) {
+      let takingPiece = board[xfrom - q][yfrom - q];
+      if (!!takingPiece) {
+        if (takingPiece.color != self.color) yield [xfrom - q, yfrom - q];
+        break;
+      }
+      yield [xfrom - q, yfrom - q];
+    }
+    for (let q = 1; xfrom - q >= 0 && yfrom + q <= 7; q++) {
+      let takingPiece = board[xfrom - q][yfrom + q];
+      if (!!takingPiece) {
+        if (takingPiece.color != self.color) yield [xfrom - q, yfrom + q];
+        break;
+      }
+      yield [xfrom - q, yfrom + q];
+    }
+    for (let q = 1; xfrom + q <= 7 && yfrom + q <= 7; q++) {
+      let takingPiece = board[xfrom + q][yfrom + q];
+      if (!!takingPiece) {
+        if (takingPiece.color != self.color) yield [xfrom + q, yfrom + q];
+        break;
+      }
+      yield [xfrom + q, yfrom + q];
+    }
+    for (let q = 1; xfrom + q <= 7 && yfrom - q >= 0; q++) {
+      let takingPiece = board[xfrom + q][yfrom - q];
+      if (!!takingPiece) {
+        if (takingPiece.color != self.color) yield [xfrom + q, yfrom - q];
+        break;
+      }
+      yield [xfrom + q, yfrom - q];
+    }
+  }
 }

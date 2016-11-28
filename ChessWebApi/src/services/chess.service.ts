@@ -1,5 +1,5 @@
 ﻿import { Service } from 'miter';
-import { ChessGame } from '../util';
+import { ChessGame, PlayerColor } from '../util';
 
 @Service()
 export class ChessService {
@@ -61,6 +61,15 @@ export class ChessService {
     game.moves.push(move);
     game.turn.timeLeft = 10;
     game.turn.name = (game.turn.name == game.players[0].name ? game.players[1].name : game.players[0].name);
+    
+    game.check = game.isKingInCheck(game.currentTurnColor);
+    let mate = game.isKingInCheckMate(game.currentTurnColor);
+    if (game.check && mate) {
+      game.winner = game.players[0].color == game.currentTurnColor ? game.players[1].name : game.players[0].name;
+    }
+    else if (!game.check && mate) {
+      game.winner = 'Stalemate';
+    }
     return '';
   }
 

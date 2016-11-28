@@ -1,4 +1,10 @@
-﻿<h1>Game: {{gameName}} -!! {{currentTurnColor}}</h1>
+﻿<h1>
+  Game: {{gameName}}.
+  <span *ngIf="game.hasStarted && !game.winner">{{currentPlayer?.name}}'s turn. ({{currentTurnColor}})</span>
+  <span *ngIf="game.hasStarted && !game.winner && game.check">You are in check!</span>
+  <span *ngIf="game.winner">{{game.winner}} won.</span>
+  <span *ngIf="error">ERROR: {{error}}</span>
+</h1>
 
 <div *ngIf="!game.hasStarted">
   <add-player *ngIf="!game.players || game.players.length < 2" [gameName]="gameName" (playerAdded)="addPlayer($event)"></add-player>

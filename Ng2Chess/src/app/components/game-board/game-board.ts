@@ -24,10 +24,10 @@ function makeCoords(col: number, row: number): string {
 })
 export class GameBoardComponent {
   constructor() { }
-
+  
   @Input() board: any;
   @Input() currentTurnColor: 'Black' | 'White';
-
+  
   private _moveCount: number;
   @Input()
   set moveCount(val: number) {
@@ -37,16 +37,16 @@ export class GameBoardComponent {
     this.selectedRow = -1;
     this.movePossibilities = [];
   }
-
+  
   @Output() moveMade: EventEmitter<string> = new EventEmitter<string>();
-
+  
   private selectedRow: number;
   private selectedColumn: number;
   private movePossibilities: MovePossibility[] = [];
   isValidMove(col: number, row: number): boolean {
     return !!this.movePossibilities.find(move => move.row == row && move.col == col);
   }
-
+  
   isPromoting: MovePossibility | null = null;
   
   tileClicked(col: number, row: number) {

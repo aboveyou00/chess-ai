@@ -1,35 +1,36 @@
 ﻿import { ChessPiece, StaticChessPiece, King, Queen, Knight, Rook, Bishop, Pawn } from './chess-piece';
-import { Player } from './player';
+import { Player, PlayerColor } from './player';
 import { Turn } from './turn';
 
 export class ChessGame {
   constructor() { }
-
+  
   hasStarted: boolean = false;
   winner: string = '';
-
+  
   players: Player[] = [];
   turn: Turn;
-
+  
   moves: string[];
   board: (ChessPiece | null)[][];
-
+  check: boolean = false;
+  
   initBoard() {
     this.hasStarted = true;
     this.winner = '';
     this.moves = [];
-    ////Standard chess board
-    //this.board = [
-    //  [new Rook('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')],
-    //  [new Knight('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Knight('White')],
-    //  [new Bishop('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Bishop('White')],
-    //  [new Queen('Black'),  new Pawn('Black'), null, null, null, null, new Pawn('White'), new Queen('White')],
-    //  [new King('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new King('White')],
-    //  [new Bishop('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Bishop('White')],
-    //  [new Knight('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Knight('White')],
-    //  [new Rook('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')]
-    //];
-
+    //Standard chess board
+    this.board = [
+      [new Rook('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')],
+      [new Knight('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Knight('White')],
+      [new Bishop('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Bishop('White')],
+      [new Queen('Black'),  new Pawn('Black'), null, null, null, null, new Pawn('White'), new Queen('White')],
+      [new King('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new King('White')],
+      [new Bishop('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Bishop('White')],
+      [new Knight('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Knight('White')],
+      [new Rook('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')]
+    ];
+    
     ////Testing castling:
     //this.board = [
     //  [new Rook('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')],
@@ -41,18 +42,18 @@ export class ChessGame {
     //  [null, new Pawn('Black'), null, null, null, null, new Pawn('White'), null],
     //  [new Rook('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Rook('White')]
     //];
-
-    //Promotion
-    this.board = [
-      [null,                new Pawn('White'), null, null, null, null, new Pawn('White'), new Rook('White')],
-      [null,                null,              null, null, null, null, new Pawn('White'), new Knight('White')],
-      [new Bishop('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Bishop('White')],
-      [new Queen('Black'),  new Pawn('Black'), null, null, null, null, new Pawn('White'), new Queen('White')],
-      [new King('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new King('White')],
-      [new Bishop('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Bishop('White')],
-      [new Knight('Black'), new Pawn('Black'), null, null, null, null, null,              null],
-      [new Rook('Black'),   null,              null, null, null, null, new Pawn('Black'), null]
-    ];
+    
+    ////Promotion
+    //this.board = [
+    //  [null,                new Pawn('White'), null, null, null, null, new Pawn('White'), new Rook('White')],
+    //  [null,                null,              null, null, null, null, new Pawn('White'), new Knight('White')],
+    //  [new Bishop('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Bishop('White')],
+    //  [new Queen('Black'),  new Pawn('Black'), null, null, null, null, new Pawn('White'), new Queen('White')],
+    //  [new King('Black'),   new Pawn('Black'), null, null, null, null, new Pawn('White'), new King('White')],
+    //  [new Bishop('Black'), new Pawn('Black'), null, null, null, null, new Pawn('White'), new Bishop('White')],
+    //  [new Knight('Black'), new Pawn('Black'), null, null, null, null, null,              null],
+    //  [new Rook('Black'),   null,              null, null, null, null, new Pawn('Black'), null]
+    //];
   }
   
   get currentTurnColor() {
@@ -83,11 +84,17 @@ export class ChessGame {
     if (!rook || !(rook instanceof Rook) || rook.hasMoved || !king || !(king instanceof King) || king.hasMoved) {
       return "Invalid castling move.";
     }
-
+    
     board[kingTo][y] = king; king.hasMoved = true;
     board[rookTo][y] = rook; rook.hasMoved = true;
     board[rookFrom][y] = board[4][y] = null;
-
+    if (this.isKingInCheck(this.currentTurnColor)) {
+      board[rookFrom][y] = rook; rook.hasMoved = false;
+      board[4][y] = king; king.hasMoved = false;
+      board[rookTo][y] = board[kingTo][y] = null;
+      return "Invalid castling move. Places your king in check.";
+    }
+    
     if (log) {
       var side = queenSide ? 'Queen-side' : 'King-side';
       console.log(`${side} castle.`);
@@ -148,10 +155,22 @@ export class ChessGame {
     if (possibilities.length == 0) return "Could not find piece that matches move.";
     else if (possibilities.length > 1) return "Could not find a single best move that matches move syntax.";
     let fromx: number = possibilities[0][0], fromy: number = possibilities[0][1];
-    if (promotion) board[fromx][fromy] = new promotionType(this.currentTurnColor);
-    let pieceMoved = board[tox][toy] = board[fromx][fromy];
-    if (pieceMoved) pieceMoved.hasMoved = true;
+    
+    let oldPiece = board[fromx][fromy];
+    if (!oldPiece) return "An unknown error occurred. Could not find piece to move.";
+    let hadPieceMoved = oldPiece.hasMoved;
+    let pieceMoved = promotion ? new promotionType(this.currentTurnColor) : oldPiece;
+    let pieceCaptured = board[tox][toy];
     board[fromx][fromy] = null;
+    board[tox][toy] = pieceMoved;
+    pieceMoved.hasMoved = true;
+    
+    if (this.isKingInCheck(this.currentTurnColor)) {
+      board[fromx][fromy] = oldPiece;
+      board[tox][toy] = pieceCaptured;
+      oldPiece.hasMoved = hadPieceMoved;
+      return "Invalid move. Places your king in check.";
+    }
     
     if (log) {
       var capture = takePiece ? "to capture the piece at" : "to";
@@ -176,6 +195,61 @@ export class ChessGame {
       case 'P': return Pawn;
 
       default: throw new Error(`WTF?`);
+    }
+  }
+  
+  isKingInCheck(color: PlayerColor): boolean {
+    let otherColor: PlayerColor = (color == 'Black') ? 'White' : 'Black';
+    let otherMoves = [...this.findAllMoves(otherColor)];
+    
+    let king: King | null = null;
+    let kingx: number = -1, kingy: number = -1;
+  findKing:
+    for (let q = 0; q < 8; q++) {
+      for (let w = 0; w < 8; w++) {
+        let piece = this.board[q][w];
+        if (piece && piece instanceof King && piece.color == color) {
+          king = piece;
+          kingx = q;
+          kingy = w;
+          break findKing;
+        }
+      }
+    }
+    if (!king) return false;
+
+    for (let q = 0; q < otherMoves.length; q++) {
+      let move = otherMoves[q][0];
+      let undo = otherMoves[q][1];
+      move();
+      let inCheck = (this.board[kingx][kingy] != king);
+      undo();
+      if (inCheck) return true;
+    }
+    return false;
+  }
+  isKingInCheckMate(color: PlayerColor): boolean {
+    //Note: this method assumes that the player is in check.
+    let myMoves = [...this.findAllMoves(color)];
+    for (let q = 0; q < myMoves.length; q++) {
+      let move = myMoves[q][0];
+      let undo = myMoves[q][1];
+      move();
+      let inCheck = this.isKingInCheck(color);
+      undo();
+      if (!inCheck) return false;
+    }
+    return true;
+  }
+
+  *findAllMoves(color: PlayerColor): IterableIterator<[Function, Function]> {
+    for (let q = 0; q < 8; q++) {
+      for (let w = 0; w < 8; w++) {
+        let piece = this.board[q][w];
+        if (!piece || piece.color != color) continue;
+        
+        yield* [...piece.listMoves(this.board, q, w)];
+      }
     }
   }
   
