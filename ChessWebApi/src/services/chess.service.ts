@@ -3,8 +3,10 @@ import { ChessGame, PlayerColor } from '../util';
 
 @Service()
 export class ChessService {
-  
+
   private games = new Map<string, ChessGame>();
+
+  public async start() { }
 
   deleteGame(name: string): boolean {
     return this.games.delete(name);

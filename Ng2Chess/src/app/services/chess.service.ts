@@ -38,7 +38,7 @@ export class ChessService {
   makeMove(gameName: string, playerName: string, move: string): Promise<[boolean, string]> {
     return this.http
       .post(ApiPathBase + `makemove/${gameName}/${playerName}/${move}`, {})
-      .map(response => response.status == 200 ? [true, ''] : [false, response.text()])
+      .map<[boolean, string]>(response => response.status == 200 ? [true, ''] : [false, response.text()])
       .share()
       .toPromise();
   }

@@ -1,5 +1,7 @@
-﻿import { ChessService } from './chess.service';
+﻿import { CtorT, ServiceT } from 'miter';
 
-export const AppServices = [
+import { ChessService } from './chess.service';
+
+export const AppServices: CtorT<ServiceT>[] = [
   ChessService
 ];

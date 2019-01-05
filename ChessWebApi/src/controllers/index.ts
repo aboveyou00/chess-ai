@@ -1,5 +1,6 @@
-﻿import { ChessController } from './chess.controller';
+﻿import { CtorT, ControllerT } from 'miter';
+import { ChessController } from './chess.controller';
 
-export const AppControllers = [
+export const AppControllers: CtorT<ControllerT>[] = <any[]>[
   ChessController
 ];
